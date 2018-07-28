@@ -1,0 +1,34 @@
+<idea-plugin>
+    <id>ru.meanmail.plugin.requirements</id>
+    <name>Requirements</name>
+    <version>SNAPSHOT</version>
+    <idea-version since-build="173"/>
+    <vendor email="plugin@meanmail.ru" url="https://meanmail.ru">meanmail</vendor>
+    <description><![CDATA[
+        Python requirements.txt
+    ]]>
+    </description>
+    <change-notes><![CDATA[
+        Fix: eof after package is syntax error
+    ]]>
+    </change-notes>
+
+    <depends>com.intellij.modules.lang</depends>
+
+    <extensions defaultExtensionNs="com.intellij">
+        <fileTypeFactory implementation="ru.meanmail.RequirementsFileTypeFactory"/>
+    </extensions>
+
+    <extensions defaultExtensionNs="com.intellij.lang">
+        <parserDefinition language="requirements.txt"
+                          implementationClass="ru.meanmail.RequirementsParserDefinition"/>
+        <syntaxHighlighterFactory language="requirements.txt"
+                                  implementationClass="ru.meanmail.RequirementsSyntaxHighlighterFactory"/>
+        <psiStructureViewFactory language="requirements.txt"
+                                 implementationClass="ru.meanmail.structure.RequirementsStructureViewFactory"/>
+        <commenter language="requirements.txt" implementationClass="ru.meanmail.RequirementsCommenter"/>
+    </extensions>
+    <actions>
+
+    </actions>
+</idea-plugin>
