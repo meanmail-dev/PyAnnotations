@@ -1,0 +1,28 @@
+<idea-plugin>
+    <extensions defaultExtensionNs="com.intellij">
+        <localInspection language="Python"
+                         shortName="UnionWithOneChildToChildInspection"
+                         suppressId="PyAnnotations"
+                         groupName="Python Annotations"
+                         enabledByDefault="true"
+                         level="WARNING"
+                         implementationClass="ru.meanmail.codeInspection.UnionWithOneChildToChildInspection"
+                         displayName="Union simplify"/>
+        <localInspection language="Python"
+                         shortName="UnionWithObjectInspection"
+                         suppressId="PyAnnotations"
+                         groupName="Python Annotations"
+                         enabledByDefault="true"
+                         level="WARNING"
+                         implementationClass="ru.meanmail.codeInspection.UnionWithObjectInspection"
+                         displayName="Union simplify"/>
+        <localInspection language="Python"
+                         shortName="UnionWithNoneInspection"
+                         suppressId="PyAnnotations"
+                         groupName="Python Annotations"
+                         enabledByDefault="true"
+                         level="WARNING"
+                         implementationClass="ru.meanmail.codeInspection.UnionWithNoneInspection"
+                         displayName="Union simplify"/>
+    </extensions>
+</idea-plugin>

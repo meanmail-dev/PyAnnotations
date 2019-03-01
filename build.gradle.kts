@@ -1,14 +1,13 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
-import org.gradle.api.tasks.wrapper.Wrapper
 
 plugins {
     java
-    kotlin("jvm") version "1.2.30"
-    id("org.jetbrains.intellij") version "0.3.4"
+    kotlin("jvm") version "1.3.21"
+    id("org.jetbrains.intellij") version "0.4.3"
 }
 
 group = "ru.meanmail"
-version = "0.1"
+version = "2019.1"
 
 repositories {
     mavenCentral()
@@ -33,5 +32,6 @@ tasks.withType<Wrapper> {
 
 intellij {
     pluginName = "PyAnnotations"
-    version = "2018.1"
+    version = "2018.3.4"
+    setPlugins("PythonCore:2018.3.183.5429.30")
 }
