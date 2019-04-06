@@ -4,15 +4,8 @@
     <version>SNAPSHOT</version>
     <idea-version since-build="173"/>
     <vendor email="plugin@meanmail.ru" url="https://meanmail.ru">meanmail</vendor>
-    <description><![CDATA[
-        Code Inspections for Python Annotations
-    ]]>
-    </description>
-    <change-notes><![CDATA[
-        <b>Mar 29, 2019</b><br/>
-        Update IDE build
-    ]]>
-    </change-notes>
+    <description></description>
+    <change-notes></change-notes>
 
     <depends>com.intellij.modules.lang</depends>
     <depends optional="true" config-file="config.xml">PythonCore</depends>

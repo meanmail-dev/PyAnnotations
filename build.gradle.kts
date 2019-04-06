@@ -1,3 +1,4 @@
+import org.jetbrains.intellij.tasks.PatchPluginXmlTask
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
@@ -34,4 +35,37 @@ intellij {
     pluginName = "PyAnnotations"
     version = "2019.1"
     setPlugins("PythonCore:2019.1.191.6183.53")
+}
+
+fun readChangeNotes(pathname: String): String {
+    val lines = file(pathname).readLines()
+    
+    val notes: MutableList<MutableList<String>> = mutableListOf()
+    
+    var note: MutableList<String>? = null
+    
+    for (line in lines) {
+        if (line.startsWith('#')) {
+            if (notes.size == 3) {
+                break
+            }
+            note = mutableListOf()
+            notes.add(note)
+            val header = line.trimStart('#')
+            note.add("<b>$header</b>")
+        } else if (line.isNotBlank()) {
+            note?.add(line)
+        }
+    }
+    
+    return notes.joinToString("</p><br><p>", prefix = "<p>",
+            postfix = "</p><br>") {
+        it.joinToString("<br>")
+    } + "See the full change notes on the " +
+            "<a href='https://github.com/meanmail/PyAnnotations'>github</a>"
+}
+
+tasks.withType<PatchPluginXmlTask> {
+    setPluginDescription(file("Description.txt").readText())
+    setChangeNotes(readChangeNotes("ChangeNotes.md"))
 }
