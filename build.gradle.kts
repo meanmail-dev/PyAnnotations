@@ -33,7 +33,7 @@ tasks.withType<Wrapper> {
 
 intellij {
     pluginName = "PyAnnotations"
-    version = "2019.1"
+    version = "2019.2"
     setPlugins("PythonCore:2019.1.191.6183.53")
 }
 
