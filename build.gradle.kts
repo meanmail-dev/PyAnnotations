@@ -3,12 +3,12 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
     java
-    kotlin("jvm") version "1.3.21"
+    kotlin("jvm") version "1.3.50"
     id("org.jetbrains.intellij") version "0.4.5"
 }
 
 group = "ru.meanmail"
-version = "2019.1.2"
+version = project.properties["version"].toString()
 
 repositories {
     mavenCentral()
@@ -22,6 +22,7 @@ dependencies {
 configure<JavaPluginConvention> {
     sourceCompatibility = JavaVersion.VERSION_1_8
 }
+
 tasks.withType<KotlinCompile> {
     kotlinOptions.jvmTarget = "1.8"
 }
@@ -32,18 +33,18 @@ tasks.withType<Wrapper> {
 }
 
 intellij {
-    pluginName = "PyAnnotations"
-    version = "2019.2"
-    setPlugins("PythonCore:2019.2.192.5728.98")
+    pluginName = project.properties["pluginName"].toString()
+    version = project.properties["IdeVersion"].toString()
+    setPlugins(project.properties["pythonPluginVersion"].toString())
 }
 
 fun readChangeNotes(pathname: String): String {
     val lines = file(pathname).readLines()
-    
+
     val notes: MutableList<MutableList<String>> = mutableListOf()
-    
+
     var note: MutableList<String>? = null
-    
+
     for (line in lines) {
         if (line.startsWith('#')) {
             if (notes.size == 3) {
@@ -57,12 +58,14 @@ fun readChangeNotes(pathname: String): String {
             note?.add(line)
         }
     }
-    
+
     return notes.joinToString("</p><br><p>", prefix = "<p>",
             postfix = "</p><br>") {
         it.joinToString("<br>")
-    } + "See the full change notes on the " +
-            "<a href='https://github.com/meanmail/PyAnnotations'>github</a>"
+    } +
+            "See the full change notes on the <a href='" +
+            project.properties["repository"] +
+            "/blob/master/ChangeNotes.md'>github</a>"
 }
 
 tasks.withType<PatchPluginXmlTask> {
