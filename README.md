@@ -2,6 +2,8 @@
 
 Code Inspections with quick fixes for python annotations
 
+https://meanmail.dev/plugin/3
+
 ## Examples
 
 1. Replace `Union` with `None` with `Optional`
