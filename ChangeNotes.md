@@ -1,3 +1,7 @@
+## 2020.1 (April 19, 2020)
+
+Update IDE build
+
 ## 2019.1.3 (December, 04, 2019)
 
 * Version for Intellij 2019.3.*
