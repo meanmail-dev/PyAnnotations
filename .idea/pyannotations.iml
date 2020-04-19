@@ -4,7 +4,7 @@
     <option name="TEMPLATE_CONFIGURATION" value="Jinja2" />
     <option name="TEMPLATE_FOLDERS">
       <list>
-        <option value="$MODULE_DIR$/build/idea-sandbox/plugins/python-ce/helpers/pydev/tests_python/flask1/templates" />
+        <option value="$MODULE_DIR$/build/idea-sandbox/plugins/python-ce/helpers/pydev/pydev_tests_python/flask1/templates" />
       </list>
     </option>
   </component>
