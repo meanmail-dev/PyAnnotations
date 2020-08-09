@@ -1,4 +1,5 @@
 # PyAnnotations plugin
+![JetBrains IntelliJ Plugins](https://img.shields.io/jetbrains/plugin/r/stars/12035?label=JetBrans%20Marketplace)
 
 Code Inspections with quick fixes for python annotations
 
