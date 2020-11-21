@@ -6,6 +6,11 @@ Code Inspections with quick fixes for python annotations
 
 https://meanmail.dev/plugin/3
 
+## Supported versions of Intellij:
+
+All product with python — 2020.1 — 2020.3(eap)
+
+
 ## Examples
 
 1. Replace `Union` with `None` with `Optional`
