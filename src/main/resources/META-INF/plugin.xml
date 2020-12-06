@@ -1,4 +1,4 @@
-<idea-plugin>
+<idea-plugin url="https://meanmail.dev/plugin/3">
     <id>ru.meanmail.plugin.pyannotations</id>
     <name>Python Annotations</name>
     <version>SNAPSHOT</version>
