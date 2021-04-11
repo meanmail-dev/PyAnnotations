@@ -46,12 +46,16 @@ intellij {
         project.properties["IdeVersion"].toString()
     }
     type = project.properties["ideType"].toString()
-    if (type == "PY") {
-        setPlugins("python")
-    } else if (type == "PC") {
-        setPlugins("PythonCore")
-    } else {
-        setPlugins(project.properties["pythonPluginVersion"].toString())
+    when (type) {
+        "PY" -> {
+            setPlugins("python")
+        }
+        "PC" -> {
+            setPlugins("PythonCore")
+        }
+        else -> {
+            setPlugins(project.properties["pythonPluginVersion"].toString())
+        }
     }
 }
 
