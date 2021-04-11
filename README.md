@@ -1,7 +1,7 @@
 # PyAnnotations plugin
-![JetBrains IntelliJ Plugins](https://img.shields.io/jetbrains/plugin/r/stars/12035?label=JetBrans%20Marketplace)
-![JetBrains IntelliJ plugins](https://img.shields.io/jetbrains/plugin/d/12035)
-![Twitter Follow](https://img.shields.io/twitter/follow/meanmaildev?style=plastic)
+[![JetBrains IntelliJ Plugins](https://img.shields.io/jetbrains/plugin/r/stars/12035?label=JetBrans%20Marketplace)](https://plugins.jetbrains.com/plugin/12035)
+[![JetBrains IntelliJ plugins](https://img.shields.io/jetbrains/plugin/d/12035)](https://plugins.jetbrains.com/plugin/12035)
+[![Twitter Follow](https://img.shields.io/twitter/follow/meanmaildev?style=plastic)](https://twitter.com/meanmaildev)
 
 Code Inspections with quick fixes for python annotations
 
