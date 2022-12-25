@@ -5,7 +5,9 @@ import com.intellij.codeInspection.ProblemsHolder
 import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiElementVisitor
 import com.jetbrains.python.inspections.PyInspection
+import com.jetbrains.python.inspections.PyInspectionVisitor
 import com.jetbrains.python.psi.PyExpression
+import com.jetbrains.python.psi.types.TypeEvalContext
 import org.jetbrains.annotations.Nls
 import ru.meanmail.quickfix.ReplaceUnionWithOneChildToChildQuickFix
 
@@ -14,20 +16,27 @@ class UnionWithOneChildToChildInspection : PyInspection() {
     override fun getDisplayName(): String {
         return "Union[item] instead item"
     }
-    
-    override fun buildVisitor(holder: ProblemsHolder,
-                              isOnTheFly: Boolean,
-                              session: LocalInspectionToolSession): PsiElementVisitor {
-        return Visitor(holder, session)
+
+    override fun buildVisitor(
+        holder: ProblemsHolder,
+        isOnTheFly: Boolean,
+        session: LocalInspectionToolSession
+    ): PsiElementVisitor {
+        val context = PyInspectionVisitor.getContext(session)
+        return Visitor(holder, context)
     }
-    
+
     companion object {
-        class Visitor(holder: ProblemsHolder?, session: LocalInspectionToolSession) :
-                BaseInspectionVisitor(holder, session) {
-            
+        class Visitor(
+            holder: ProblemsHolder?,
+            context: TypeEvalContext
+        ) : BaseInspectionVisitor(holder, context) {
+
             override fun visitPyAnnotationUnionWithOneChildExpression(node: PyExpression, item: PsiElement) {
-                registerProblem(node, "Replace ${node.text} to ${item.text}",
-                        ReplaceUnionWithOneChildToChildQuickFix())
+                registerProblem(
+                    node, "Replace ${node.text} to ${item.text}",
+                    ReplaceUnionWithOneChildToChildQuickFix()
+                )
             }
         }
     }

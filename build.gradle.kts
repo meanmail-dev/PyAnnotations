@@ -10,7 +10,7 @@ plugins {
     java
 // https://plugins.jetbrains.com/docs/intellij/using-kotlin.html#kotlin-standard-library
     kotlin("jvm") version "1.5.10"
-    id("org.jetbrains.intellij") version "1.9.0"
+    id("org.jetbrains.intellij") version "1.11.0"
 }
 
 group = config("group")
@@ -18,7 +18,7 @@ version = config("version")
 
 dependencies {
     testImplementation(kotlin("test"))
-    testImplementation("org.junit.jupiter:junit-jupiter-params:5.9.0")
+    testImplementation("org.junit.jupiter:junit-jupiter-params:5.9.1")
 }
 
 intellij {
@@ -121,13 +121,15 @@ tasks {
         sinceBuild.set(config("platformSinceBuild"))
     }
 
+    signPlugin {
+        certificateChain.set(file("sign/chain.crt").readText().trim())
+        privateKey.set(file("sign/private.pem").readText().trim())
+        password.set(System.getenv("PRIVATE_KEY_PASSWORD"))
+    }
+
     publishPlugin {
         dependsOn("buildPlugin")
         token.set(file("token.txt").readLines()[0])
         channels.set(listOf(config("publishChannel")))
-    }
-
-    buildSearchableOptions {
-        enabled = false
     }
 }

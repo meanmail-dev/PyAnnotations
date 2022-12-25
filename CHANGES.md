@@ -1,3 +1,7 @@
+## 2022.2 (December 25, 2022)
+
+* Fix: 'this constructor' is deprecated and going to be removed soon.
+
 ## 2022.1 (October 16, 2022)
 
 Update IDE build
