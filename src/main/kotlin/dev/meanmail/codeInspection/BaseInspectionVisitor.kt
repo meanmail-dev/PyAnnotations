@@ -1,6 +1,5 @@
-package ru.meanmail.codeInspection
+package dev.meanmail.codeInspection
 
-import com.intellij.codeInspection.LocalInspectionToolSession
 import com.intellij.codeInspection.ProblemsHolder
 import com.intellij.psi.PsiElement
 import com.jetbrains.python.inspections.PyInspectionVisitor
@@ -25,7 +24,7 @@ open class BaseInspectionVisitor(
     override fun visitPySubscriptionExpression(node: PySubscriptionExpression) {
         if (node.firstChild.text == "Union" && node.children.count() == 2) {
             val secondChild = node.children[1]
-            if (secondChild  as? PyTupleExpression != null) {
+            if (secondChild as? PyTupleExpression != null) {
                 visitPyAnnotationUnionExpression(node, secondChild)
             } else {
                 visitPyAnnotationUnionWithOneChildExpression(node, secondChild)

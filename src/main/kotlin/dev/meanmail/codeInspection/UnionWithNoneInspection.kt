@@ -1,4 +1,4 @@
-package ru.meanmail.codeInspection
+package dev.meanmail.codeInspection
 
 import com.intellij.codeInspection.LocalInspectionToolSession
 import com.intellij.codeInspection.ProblemsHolder
@@ -8,8 +8,8 @@ import com.jetbrains.python.inspections.PyInspectionVisitor
 import com.jetbrains.python.psi.PyExpression
 import com.jetbrains.python.psi.PyTupleExpression
 import com.jetbrains.python.psi.types.TypeEvalContext
+import dev.meanmail.quickfix.ReplaceUnionWithNoneToOptionalUnionQuickFix
 import org.jetbrains.annotations.Nls
-import ru.meanmail.quickfix.ReplaceUnionWithNoneToOptionalUnionQuickFix
 
 class UnionWithNoneInspection : PyInspection() {
     @Nls

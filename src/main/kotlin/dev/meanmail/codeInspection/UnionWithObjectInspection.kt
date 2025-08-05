@@ -1,4 +1,4 @@
-package ru.meanmail.codeInspection
+package dev.meanmail.codeInspection
 
 import com.intellij.codeInspection.LocalInspectionToolSession
 import com.intellij.codeInspection.ProblemsHolder
@@ -8,13 +8,13 @@ import com.jetbrains.python.inspections.PyInspectionVisitor
 import com.jetbrains.python.psi.PyExpression
 import com.jetbrains.python.psi.PyTupleExpression
 import com.jetbrains.python.psi.types.TypeEvalContext
+import dev.meanmail.quickfix.ReplaceUnionWithObjectToObjectQuickFix
 import org.jetbrains.annotations.Nls
-import ru.meanmail.quickfix.ReplaceUnionWithAnyToAnyQuickFix
 
-class AnyInUnionInspection : PyInspection() {
+class UnionWithObjectInspection : PyInspection() {
     @Nls
     override fun getDisplayName(): String {
-        return "Union[..., Any] instead 'Any'"
+        return "Union[..., object] instead 'object'"
     }
 
     override fun buildVisitor(
@@ -34,10 +34,10 @@ class AnyInUnionInspection : PyInspection() {
             BaseInspectionVisitor(holder, context) {
 
             override fun visitPyAnnotationUnionExpression(node: PyExpression, items: PyTupleExpression) {
-                if (hasChildren(items, "Any")) {
+                if (hasChildren(items, "object") && !hasChildren(items, "None|NoneType")) {
                     registerProblem(
-                        node, "Replace ${node.text} to Any",
-                        ReplaceUnionWithAnyToAnyQuickFix()
+                        node, "Simplify ${node.text} to 'object' - Union with 'object' is equivalent to 'object'",
+                        ReplaceUnionWithObjectToObjectQuickFix()
                     )
                 } else {
                     visitElement(node)

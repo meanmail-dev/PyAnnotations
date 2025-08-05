@@ -1,4 +1,4 @@
-package ru.meanmail.codeInspection
+package dev.meanmail.codeInspection
 
 import com.intellij.codeInspection.LocalInspectionToolSession
 import com.intellij.codeInspection.ProblemsHolder
@@ -7,8 +7,8 @@ import com.jetbrains.python.inspections.PyInspection
 import com.jetbrains.python.inspections.PyInspectionVisitor
 import com.jetbrains.python.psi.PySubscriptionExpression
 import com.jetbrains.python.psi.types.TypeEvalContext
+import dev.meanmail.quickfix.ReplaceRedundantOptionalQuickFix
 import org.jetbrains.annotations.Nls
-import ru.meanmail.quickfix.ReplaceRedundantOptionalQuickFix
 
 class RedundantOptionalInspection : PyInspection() {
     @Nls

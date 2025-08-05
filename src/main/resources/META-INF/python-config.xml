@@ -6,7 +6,7 @@
                          groupName="Python Annotations"
                          enabledByDefault="true"
                          level="WARNING"
-                         implementationClass="ru.meanmail.codeInspection.UnionWithOneChildToChildInspection"
+                         implementationClass="dev.meanmail.codeInspection.UnionWithOneChildToChildInspection"
                          displayName="Union with single type"/>
         <localInspection language="Python"
                          shortName="UnionWithObjectInspection"
@@ -14,7 +14,7 @@
                          groupName="Python Annotations"
                          enabledByDefault="true"
                          level="WARNING"
-                         implementationClass="ru.meanmail.codeInspection.UnionWithObjectInspection"
+                         implementationClass="dev.meanmail.codeInspection.UnionWithObjectInspection"
                          displayName="Union with object"/>
         <localInspection language="Python"
                          shortName="UnionWithNoneInspection"
@@ -22,7 +22,7 @@
                          groupName="Python Annotations"
                          enabledByDefault="true"
                          level="WARNING"
-                         implementationClass="ru.meanmail.codeInspection.UnionWithNoneInspection"
+                         implementationClass="dev.meanmail.codeInspection.UnionWithNoneInspection"
                          displayName="Union with None"/>
         <localInspection language="Python"
                          shortName="RedundantOptionalInspection"
@@ -30,7 +30,7 @@
                          groupName="Python Annotations"
                          enabledByDefault="true"
                          level="WARNING"
-                         implementationClass="ru.meanmail.codeInspection.RedundantOptionalInspection"
+                         implementationClass="dev.meanmail.codeInspection.RedundantOptionalInspection"
                          displayName="Redundant Optional"/>
         <localInspection language="Python"
                          shortName="AnyInUnionInspection"
@@ -38,7 +38,7 @@
                          groupName="Python Annotations"
                          enabledByDefault="true"
                          level="WARNING"
-                         implementationClass="ru.meanmail.codeInspection.AnyInUnionInspection"
+                         implementationClass="dev.meanmail.codeInspection.AnyInUnionInspection"
                          displayName="Union with Any simplify"/>
     </extensions>
 </idea-plugin>

@@ -1,4 +1,4 @@
-package ru.meanmail.quickfix
+package dev.meanmail.quickfix
 
 import com.intellij.codeInspection.LocalQuickFix
 import com.intellij.codeInspection.ProblemDescriptor
@@ -9,17 +9,17 @@ import com.jetbrains.python.psi.PyElementGenerator
 import com.jetbrains.python.psi.PySubscriptionExpression
 
 class ReplaceUnionWithNoneToOptionalUnionQuickFix : LocalQuickFix {
-    
+
     override fun getFamilyName(): String {
         return "Replace Union[None, ...] to Optional[Union[...]]"
     }
-    
+
     private val pattern = "('|\"|)(None|NoneType)\\1".toRegex()
-    
+
     private fun matchNone(node: PsiElement): Boolean {
         return pattern.matches(node.text)
     }
-    
+
     override fun applyFix(project: Project, descriptor: ProblemDescriptor) {
         val union = descriptor.psiElement as? PySubscriptionExpression ?: return
         val elementGenerator = PyElementGenerator.getInstance(project)

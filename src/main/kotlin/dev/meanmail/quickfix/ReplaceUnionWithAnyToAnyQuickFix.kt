@@ -1,4 +1,4 @@
-package ru.meanmail.quickfix
+package dev.meanmail.quickfix
 
 import com.intellij.codeInspection.LocalQuickFix
 import com.intellij.codeInspection.ProblemDescriptor
