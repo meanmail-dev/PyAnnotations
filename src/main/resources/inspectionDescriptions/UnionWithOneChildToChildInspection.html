@@ -2,5 +2,23 @@
 <body>
 This inspection reports when the Union[item] annotation was used instead 'item'.<br>
 Union[item] -> item
+<p>
+    A Union type with only a single item is redundant and can be simplified:
+</p>
+<ul>
+    <li>Union[str] is equivalent to just str</li>
+    <li>Union[Dict[str, int]] is equivalent to Dict[str, int]</li>
+    <li>Union[List[int]] is equivalent to List[int]</li>
+</ul>
+<p>
+    This inspection helps maintain clean and concise type annotations by removing unnecessary Union wrappers around
+    single types.
+    The simplified form is:
+</p>
+<ul>
+    <li>More readable</li>
+    <li>More maintainable</li>
+    <li>Consistent with Python typing best practices</li>
+</ul>
 </body>
 </html>

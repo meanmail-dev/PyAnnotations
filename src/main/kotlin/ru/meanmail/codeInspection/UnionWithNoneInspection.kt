@@ -36,10 +36,18 @@ class UnionWithNoneInspection : PyInspection() {
                 node: PyExpression, items: PyTupleExpression
             ) {
                 if (hasChildren(items, "None|NoneType")) {
-                    registerProblem(
-                        node, "Replace ${node.text} to Optional[${node.text}]",
-                        ReplaceUnionWithNoneToOptionalUnionQuickFix()
-                    )
+                    // Check if Union has only None
+                    if (items.children.count() == 1 && items.children.all { it.text.matches("('|\"|)(None|NoneType)\\1".toRegex()) }) {
+                        registerProblem(
+                            node, "Simplify ${node.text} to None - Union with only None is redundant",
+                            ReplaceUnionWithNoneToOptionalUnionQuickFix()
+                        )
+                    } else {
+                        registerProblem(
+                            node, "Use Optional instead of Union with None: replace ${node.text} with Optional[...]",
+                            ReplaceUnionWithNoneToOptionalUnionQuickFix()
+                        )
+                    }
                 } else {
                     visitElement(node)
                 }

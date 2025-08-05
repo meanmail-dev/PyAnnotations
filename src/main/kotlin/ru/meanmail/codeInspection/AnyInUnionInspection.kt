@@ -9,12 +9,12 @@ import com.jetbrains.python.psi.PyExpression
 import com.jetbrains.python.psi.PyTupleExpression
 import com.jetbrains.python.psi.types.TypeEvalContext
 import org.jetbrains.annotations.Nls
-import ru.meanmail.quickfix.ReplaceUnionWithObjectToObjectQuickFix
+import ru.meanmail.quickfix.ReplaceUnionWithAnyToAnyQuickFix
 
-class UnionWithObjectInspection : PyInspection() {
+class AnyInUnionInspection : PyInspection() {
     @Nls
     override fun getDisplayName(): String {
-        return "Union[..., object] instead 'object'"
+        return "Union[..., Any] instead 'Any'"
     }
 
     override fun buildVisitor(
@@ -34,10 +34,10 @@ class UnionWithObjectInspection : PyInspection() {
             BaseInspectionVisitor(holder, context) {
 
             override fun visitPyAnnotationUnionExpression(node: PyExpression, items: PyTupleExpression) {
-                if (hasChildren(items, "object") && !hasChildren(items, "None|NoneType")) {
+                if (hasChildren(items, "Any")) {
                     registerProblem(
-                        node, "Simplify ${node.text} to 'object' - Union with 'object' is equivalent to 'object'",
-                        ReplaceUnionWithObjectToObjectQuickFix()
+                        node, "Replace ${node.text} to Any",
+                        ReplaceUnionWithAnyToAnyQuickFix()
                     )
                 } else {
                     visitElement(node)

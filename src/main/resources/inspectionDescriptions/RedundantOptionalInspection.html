@@ -1,0 +1,10 @@
+<html>
+<body>
+This inspection reports when Optional is redundantly nested inside another Optional.<br>
+Optional[Optional[Type]] -> Optional[Type]<br>
+<p>
+    Nested Optional types are redundant because Optional already indicates that a value might be None.
+    Having multiple layers of Optional doesn't change the semantics - a value is either present or None.
+</p>
+</body>
+</html>

@@ -4,5 +4,16 @@ This inspection reports when the Union[None, ...] annotation was used instead Op
 Union[object, None] -> Optional[object]<br>
 Union[int, string, None] -> Optional[Union[int, string]]<br>
 Union[None] -> None
+<p>
+    Using Optional[...] instead of Union[..., None] is preferred in Python type annotations because:
+</p>
+<ul>
+    <li>It more clearly communicates the intent that a value might be None</li>
+    <li>It's more concise and easier to read</li>
+    <li>It follows the standard pattern recommended in the typing module documentation</li>
+</ul>
+<p>
+    This inspection helps maintain consistent and idiomatic type annotations in your code.
+</p>
 </body>
 </html>

@@ -4,5 +4,16 @@ This inspection reports when the Union[object, ...] annotation was used instead 
 Union[object] -> object<br>
 Union[object, int] -> object<br>
 Optional[Union[object, string]] -> Optional[object]
+<p>
+    In Python's type system, 'object' is the base class for all types. When 'object' appears in a Union:
+</p>
+<ul>
+    <li>The Union becomes equivalent to just 'object' since every type is already a subtype of 'object'</li>
+    <li>The other types in the Union become redundant</li>
+    <li>The annotation can be simplified for better readability and clarity</li>
+</ul>
+<p>
+    This inspection helps eliminate unnecessary complexity in type annotations.
+</p>
 </body>
 </html>

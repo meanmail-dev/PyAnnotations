@@ -1,0 +1,12 @@
+<html>
+<body>
+This inspection reports when the Union[..., Any] annotation was used instead of just 'Any'.<br>
+Union[Any] -> Any<br>
+Union[Any, int] -> Any<br>
+Union[str, Any, float] -> Any<br>
+<p>
+    Since Any is a supertype of all other types in Python, a Union that includes Any is equivalent to just Any.
+    This simplification makes the code more readable and avoids unnecessary complexity.
+</p>
+</body>
+</html>

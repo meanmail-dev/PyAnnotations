@@ -7,7 +7,7 @@
                          enabledByDefault="true"
                          level="WARNING"
                          implementationClass="ru.meanmail.codeInspection.UnionWithOneChildToChildInspection"
-                         displayName="Union simplify"/>
+                         displayName="Union with single type"/>
         <localInspection language="Python"
                          shortName="UnionWithObjectInspection"
                          suppressId="PyAnnotations"
@@ -15,7 +15,7 @@
                          enabledByDefault="true"
                          level="WARNING"
                          implementationClass="ru.meanmail.codeInspection.UnionWithObjectInspection"
-                         displayName="Union simplify"/>
+                         displayName="Union with object"/>
         <localInspection language="Python"
                          shortName="UnionWithNoneInspection"
                          suppressId="PyAnnotations"
@@ -23,6 +23,22 @@
                          enabledByDefault="true"
                          level="WARNING"
                          implementationClass="ru.meanmail.codeInspection.UnionWithNoneInspection"
-                         displayName="Union simplify"/>
+                         displayName="Union with None"/>
+        <localInspection language="Python"
+                         shortName="RedundantOptionalInspection"
+                         suppressId="PyAnnotations"
+                         groupName="Python Annotations"
+                         enabledByDefault="true"
+                         level="WARNING"
+                         implementationClass="ru.meanmail.codeInspection.RedundantOptionalInspection"
+                         displayName="Redundant Optional"/>
+        <localInspection language="Python"
+                         shortName="AnyInUnionInspection"
+                         suppressId="PyAnnotations"
+                         groupName="Python Annotations"
+                         enabledByDefault="true"
+                         level="WARNING"
+                         implementationClass="ru.meanmail.codeInspection.AnyInUnionInspection"
+                         displayName="Union with Any simplify"/>
     </extensions>
 </idea-plugin>

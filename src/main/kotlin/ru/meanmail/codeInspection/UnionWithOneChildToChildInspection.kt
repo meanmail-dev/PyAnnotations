@@ -34,7 +34,7 @@ class UnionWithOneChildToChildInspection : PyInspection() {
 
             override fun visitPyAnnotationUnionWithOneChildExpression(node: PyExpression, item: PsiElement) {
                 registerProblem(
-                    node, "Replace ${node.text} to ${item.text}",
+                    node, "Simplify ${node.text} to ${item.text} - Union with a single type is redundant",
                     ReplaceUnionWithOneChildToChildQuickFix()
                 )
             }
