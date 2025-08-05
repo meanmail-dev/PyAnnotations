@@ -4,9 +4,94 @@
     <version>SNAPSHOT</version>
     <idea-version since-build="173"/>
     <vendor email="plugin@meanmail.ru" url="https://meanmail.ru">meanmail</vendor>
-    <description></description>
-    <change-notes></change-notes>
+    <description><![CDATA[<h4>Code Inspections for Python Annotations</h4>
+
+Code Inspections with quick fixes for python annotations
+
+<ol><b>Examples</b>
+
+    <li>
+        Replace `Union` with `None` with `Optional`
+
+        <pre>
+        # before
+
+        def str_to_int(value: str) -> Union[int, None]:
+            ...
+
+        # after quickfix
+
+        def str_to_int(value: str) -> Optional[int]:
+            ...
+        </pre>
+    </li>
+    <li>
+        Replace `Union` with `object` with `object`
+
+        <pre>
+        # before
+
+        def some_func(value: Any) -> Union[int, object]:
+            ...
+
+        # after quickfix
+
+        def some_func(value: Any) -> object:
+            ...
+        </pre>
+    </li>
+    <li>
+        Replace `Union` with one item with item
+
+        <pre>
+        # before
+
+        def parse_json(value: str) -> Union[dict]:
+            ...
+
+        # after quickfix
+
+        def parse_json(value: str) -> dict:
+            ...
+        </pre>
+    </li>
+</ol>
+
+]]></description>
+    <change-notes><![CDATA[<h3>2022.2 (December 25, 2022)</h3>
+<ul>
+    <li>Fix: 'this constructor' is deprecated and going to be removed soon.</li>
+</ul>
+
+<h3>2022.1 (October 16, 2022)</h3>
+<p>Update IDE build</p>
+
+<h3>2021.2 (July 30, 2021)</h3>
+<p>Update IDE build</p>
+
+<h3>2020.1 (April 19, 2020)</h3>
+<p>Update IDE build</p>
+
+<h3>2019.1.3 (December, 04, 2019)</h3>
+<ul>
+    <li>Version for Intellij 2019.3.*</li>
+    <li>jvmTarget 11</li>
+</ul>
+
+<h3>2019.1.2 (July 28, 2019)</h3>
+<p>Update IDE build</p>
+
+<h3>2019.1.1 (Mar 29, 2019)</h3>
+<p>Update IDE build</p>
+
+<h3>0.1 (Mar 01, 2019)</h3>
+<p>First version</p>
+]]></change-notes>
 
     <depends>com.intellij.modules.lang</depends>
     <depends optional="true" config-file="python-config.xml">com.intellij.modules.python</depends>
+
+    <extensions defaultExtensionNs="com.intellij">
+        <errorHandler implementation="com.intellij.diagnostic.JetBrainsMarketplaceErrorReportSubmitter"/>
+    </extensions>
 </idea-plugin>
