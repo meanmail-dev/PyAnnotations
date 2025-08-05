@@ -129,3 +129,4 @@ private.pem
 chain.crt
 .intellijPlatform
 .kotlin
+.idea/ruff.xml
