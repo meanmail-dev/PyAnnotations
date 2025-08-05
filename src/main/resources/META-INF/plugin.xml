@@ -1,9 +1,9 @@
-<idea-plugin url="https://meanmail.dev/plugin/3">
+<idea-plugin url="https://meanmail.dev">
     <id>ru.meanmail.plugin.pyannotations</id>
     <name>Python Annotations</name>
     <version>SNAPSHOT</version>
     <idea-version since-build="173"/>
-    <vendor email="plugin@meanmail.ru" url="https://meanmail.ru">meanmail</vendor>
+    <vendor email="plugin@meanmail.dev" url="https://meanmail.dev">meanmail.dev</vendor>
     <description><![CDATA[<h4>Code Inspections for Python Annotations</h4>
 
 Code Inspections with quick fixes for python annotations

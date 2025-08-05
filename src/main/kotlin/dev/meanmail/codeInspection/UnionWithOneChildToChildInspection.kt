@@ -14,7 +14,7 @@ import org.jetbrains.annotations.Nls
 class UnionWithOneChildToChildInspection : PyInspection() {
     @Nls
     override fun getDisplayName(): String {
-        return "Union[item] instead item"
+        return "Union[item] instead of item"
     }
 
     override fun buildVisitor(
