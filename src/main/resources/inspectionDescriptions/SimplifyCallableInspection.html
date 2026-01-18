@@ -1,0 +1,14 @@
+<html lang="en">
+<body>
+This inspection detects <code>Callable</code> type annotations that can be simplified.<br>
+<code>Callable[..., Any]</code> → <code>Callable</code><br>
+<p>
+    When a <code>Callable</code> accepts any arguments (<code>...</code>) and returns
+    <code>Any</code>, it's equivalent to just <code>Callable</code> without parameters.
+</p>
+<p>
+    <b>Note:</b> This inspection is disabled by default as some codebases prefer
+    explicit annotations even when they could be simplified.
+</p>
+</body>
+</html>

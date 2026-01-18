@@ -146,5 +146,31 @@
                          level="WEAK WARNING"
                          implementationClass="dev.meanmail.codeInspection.ConvertPipeNoneToOptionalInspection"
                          displayName="Convert X | None to Optional"/>
+
+        <!-- Phase 4: Advanced features - disabled by default -->
+        <localInspection language="Python"
+                         shortName="ConvertToTypeStatementInspection"
+                         suppressId="PyAnnotations"
+                         groupName="Python Annotations"
+                         enabledByDefault="false"
+                         level="WEAK WARNING"
+                         implementationClass="dev.meanmail.codeInspection.ConvertToTypeStatementInspection"
+                         displayName="Convert TypeAlias to type statement"/>
+        <localInspection language="Python"
+                         shortName="SimplifyCallableInspection"
+                         suppressId="PyAnnotations"
+                         groupName="Python Annotations"
+                         enabledByDefault="false"
+                         level="WEAK WARNING"
+                         implementationClass="dev.meanmail.codeInspection.SimplifyCallableInspection"
+                         displayName="Simplify Callable annotation"/>
+        <localInspection language="Python"
+                         shortName="RedundantGenericInspection"
+                         suppressId="PyAnnotations"
+                         groupName="Python Annotations"
+                         enabledByDefault="false"
+                         level="WEAK WARNING"
+                         implementationClass="dev.meanmail.codeInspection.RedundantGenericInspection"
+                         displayName="Redundant Generic in class definition"/>
     </extensions>
 </idea-plugin>

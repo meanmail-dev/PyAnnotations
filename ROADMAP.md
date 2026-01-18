@@ -72,17 +72,16 @@ Generic built-in types available since Python 3.9 (PEP 585):
 ## Phase 4: Advanced Features
 
 ### 4.1 Type Alias Support
-- [ ] Detect issues in `TypeAlias` definitions (Python 3.10+)
-- [ ] Support `type` statement (Python 3.12+, PEP 695)
+- [x] `ConvertToTypeStatementInspection` — `TypeAlias` → `type` statement (Python 3.12+, PEP 695, disabled by default)
 - [ ] Handle forward references in string annotations
 
 ### 4.2 Callable & Protocol
-- [ ] `SimplifyCallableInspection` — detect redundant Callable patterns
+- [x] `SimplifyCallableInspection` — detect redundant Callable patterns (disabled by default)
 - [ ] `ProtocolMethodAnnotationInspection` — check Protocol method signatures
 
 ### 4.3 Generic Types
 - [ ] `UnboundTypeVarInspection` — detect TypeVar used without binding
-- [ ] `RedundantGenericInspection` — `Generic[T]` when not needed
+- [x] `RedundantGenericInspection` — `Generic[T]` when not needed (disabled by default)
 
 ---
 

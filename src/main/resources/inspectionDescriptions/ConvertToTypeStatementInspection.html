@@ -1,0 +1,17 @@
+<html lang="en">
+<body>
+This inspection suggests converting <code>TypeAlias</code> definitions to the new
+<code>type</code> statement syntax (Python 3.12+, PEP 695).<br>
+<code>MyType: TypeAlias = int</code> → <code>type MyType = int</code><br>
+<code>Vector: TypeAlias = list[float]</code> → <code>type Vector = list[float]</code><br>
+<p>
+    Python 3.12 introduced a new <code>type</code> statement for defining type aliases
+    (PEP 695). This syntax is more concise and clearly indicates that the name is
+    a type alias rather than a regular variable.
+</p>
+<p>
+    <b>Note:</b> This inspection is disabled by default. Enable it when your project
+    targets Python 3.12 or later.
+</p>
+</body>
+</html>

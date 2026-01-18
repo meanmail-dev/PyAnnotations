@@ -1,0 +1,15 @@
+<html lang="en">
+<body>
+This inspection detects redundant <code>Generic[T]</code> in class definitions.<br>
+<code>class MyList(List[T], Generic[T])</code> → <code>class MyList(List[T])</code><br>
+<p>
+    When a class inherits from a parameterized generic type (like <code>List[T]</code>),
+    explicitly including <code>Generic[T]</code> is redundant because the type parameter
+    is already declared through the parameterized base class.
+</p>
+<p>
+    <b>Note:</b> This inspection is disabled by default as some codebases prefer
+    explicit Generic declarations for clarity.
+</p>
+</body>
+</html>
