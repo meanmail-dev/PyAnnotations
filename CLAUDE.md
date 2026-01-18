@@ -2,76 +2,55 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-## Project Overview
-
-PyAnnotations is an IntelliJ Platform plugin that provides code inspections with quick fixes for Python type annotations. It helps simplify Union types and Optional types in Python code.
-
 ## Build Commands
 
 ```bash
-# Build the plugin
-./gradlew build
-
-# Run tests
-./gradlew test
-
-# Run a specific test class
-./gradlew test --tests "ClassName"
-
-# Run IDE with plugin installed for testing
-./gradlew runIde
-
-# Verify plugin compatibility
-./gradlew verifyPlugin
-
-# Build plugin distribution (ZIP)
-./gradlew buildPlugin
-
-# Publish to JetBrains Marketplace (requires token.txt)
-./gradlew publishPlugin
+./gradlew build              # Build the plugin
+./gradlew test               # Run tests
+./gradlew test --tests "ClassName"  # Run specific test
+./gradlew runIde             # Run IDE with plugin for testing
+./gradlew verifyPlugin       # Verify plugin compatibility
+./gradlew buildPlugin        # Build plugin ZIP distribution
+./gradlew publishPlugin      # Publish to Marketplace (requires token.txt)
 ```
 
 ## Architecture
 
-### Plugin Structure
-- **Package**: `dev.meanmail` (migrated from `ru.meanmail`)
-- **Plugin ID**: `ru.meanmail.plugin.pyannotations` (legacy ID kept for compatibility)
-- **Depends on**: `PythonCore` bundled plugin
+PyAnnotations is an IntelliJ Platform plugin providing code inspections with quick fixes for Python type annotations (Union, Optional, pipe syntax).
 
-### Core Components
+### Two Base Visitor Classes
 
-**Inspections** (`src/main/kotlin/dev/meanmail/codeInspection/`):
-- `BaseInspectionVisitor` - Base class extending `PyInspectionVisitor`, handles visiting `PySubscriptionExpression` for Union types
-- Each inspection extends `PyInspection` and creates a visitor extending `BaseInspectionVisitor`
-- Inspections are registered in `src/main/resources/META-INF/python-config.xml`
+**`BaseInspectionVisitor`** — For `Union[...]` and `Optional[...]` syntax:
+- Extends `PyInspectionVisitor`
+- Visits `PySubscriptionExpression` nodes
+- Override `visitPyAnnotationUnionExpression(node, items)` for Union with multiple types
+- Override `visitPyAnnotationUnionWithOneChildExpression(node, item)` for Union with single type
+- Use `hasChildren(node, text)` to check for specific types in Union
 
-**Quick Fixes** (`src/main/kotlin/dev/meanmail/quickfix/`):
-- Each quick fix implements the replacement logic for its corresponding inspection
-- Quick fixes modify the PSI tree to transform annotations
-
-**Inspection Registration**:
-- Main plugin descriptor: `src/main/resources/META-INF/plugin.xml`
-- Python-specific extensions: `src/main/resources/META-INF/python-config.xml` (loaded conditionally when Python plugin is available)
-- Inspection descriptions: `src/main/resources/inspectionDescriptions/*.html`
+**`BasePipeUnionVisitor`** — For pipe syntax `X | Y` (Python 3.10+):
+- Extends `PyInspectionVisitor`
+- Visits `PyBinaryExpression` with `|` operator in annotation context only
+- Override `visitPipeUnionExpression(node)` to handle pipe unions
+- Use `collectPipeUnionTypes(node)` to get all types in chain (`X | Y | Z` → `[X, Y, Z]`)
+- Use `hasType(node, "None", "Any")` to check for specific types
 
 ### Adding a New Inspection
 
 1. Create inspection class in `codeInspection/` extending `PyInspection`
-2. Create inner `Visitor` class extending `BaseInspectionVisitor`
-3. Create quick fix class in `quickfix/`
-4. Add inspection description HTML in `inspectionDescriptions/`
-5. Register inspection in `python-config.xml`
+2. Create inner `Visitor` class extending appropriate base visitor
+3. Create quick fix class in `quickfix/` implementing `LocalQuickFix`
+4. Add HTML description in `inspectionDescriptions/`
+5. Register in `python-config.xml` with `enabledByDefault`, `level`, etc.
 
-## Configuration
+### Key Files
 
-Key settings in `gradle.properties`:
-- `platformVersion` - Target IDE version for development
-- `platformSinceBuild` - Minimum supported IDE build
-- `platformType=PC` - PyCharm Community
-- `platformBundledPlugins=PythonCore` - Required bundled plugin
+- `plugin.xml` — Main plugin descriptor
+- `python-config.xml` — All inspection registrations (loaded when Python plugin available)
+- `gradle.properties` — Platform version, plugin metadata
 
 ## Important Notes
 
-- Never use `SwingUtilities.invokeLater` - use `ApplicationManager` equivalents instead
+- Never use `SwingUtilities.invokeLater` — use `ApplicationManager` equivalents
 - Code must be in English only
 - Do not run `gradlew clean` without permission
+- Keep `ROADMAP.md` up to date when completing features
