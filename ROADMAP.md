@@ -46,9 +46,9 @@ Inspections to convert classic syntax to modern pipe syntax (disabled by default
 - [x] `ConvertOptionalToModernSyntaxInspection` — `Optional[X]` → `X | None`
 
 ### 2.3 Backward Compatibility (Python < 3.10)
-Inspections to convert modern syntax to classic (for projects targeting older Python):
-- [ ] `ConvertPipeToUnionInspection` — `X | Y` → `Union[X, Y]`
-- [ ] `ConvertPipeNoneToOptionalInspection` — `X | None` → `Optional[X]`
+Inspections to convert modern syntax to classic (disabled by default):
+- [x] `ConvertPipeToUnionInspection` — `X | Y` → `Union[X, Y]`
+- [x] `ConvertPipeNoneToOptionalInspection` — `X | None` → `Optional[X]`
 
 ---
 

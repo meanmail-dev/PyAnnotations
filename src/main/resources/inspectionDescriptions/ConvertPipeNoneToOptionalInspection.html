@@ -1,0 +1,17 @@
+<html lang="en">
+<body>
+This inspection suggests converting X | None syntax to Optional for backward compatibility.<br>
+<code>int | None</code> → <code>Optional[int]</code><br>
+<code>str | None</code> → <code>Optional[str]</code><br>
+<code>int | str | None</code> → <code>Optional[Union[int, str]]</code><br>
+<p>
+    The pipe syntax (<code>X | None</code>) for optional types was introduced in Python 3.10 (PEP 604).
+    If your project needs to support Python 3.9 or earlier, you should use <code>Optional[X]</code>
+    from the <code>typing</code> module instead.
+</p>
+<p>
+    <b>Note:</b> This inspection is disabled by default. Enable it when your project
+    targets Python versions earlier than 3.10.
+</p>
+</body>
+</html>

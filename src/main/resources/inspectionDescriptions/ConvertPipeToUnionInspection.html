@@ -1,0 +1,16 @@
+<html lang="en">
+<body>
+This inspection suggests converting pipe union syntax to classic Union for backward compatibility.<br>
+<code>int | str</code> → <code>Union[int, str]</code><br>
+<code>int | str | float</code> → <code>Union[int, str, float]</code><br>
+<p>
+    The pipe syntax (<code>X | Y</code>) for type unions was introduced in Python 3.10 (PEP 604).
+    If your project needs to support Python 3.9 or earlier, you should use <code>Union[X, Y]</code>
+    from the <code>typing</code> module instead.
+</p>
+<p>
+    <b>Note:</b> This inspection is disabled by default. Enable it when your project
+    targets Python versions earlier than 3.10.
+</p>
+</body>
+</html>

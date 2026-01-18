@@ -92,5 +92,23 @@
                          level="WEAK WARNING"
                          implementationClass="dev.meanmail.codeInspection.ConvertOptionalToModernSyntaxInspection"
                          displayName="Convert Optional to pipe syntax"/>
+
+        <!-- Backward compatibility inspections (Python < 3.10) - disabled by default -->
+        <localInspection language="Python"
+                         shortName="ConvertPipeToUnionInspection"
+                         suppressId="PyAnnotations"
+                         groupName="Python Annotations"
+                         enabledByDefault="false"
+                         level="WEAK WARNING"
+                         implementationClass="dev.meanmail.codeInspection.ConvertPipeToUnionInspection"
+                         displayName="Convert pipe to Union syntax"/>
+        <localInspection language="Python"
+                         shortName="ConvertPipeNoneToOptionalInspection"
+                         suppressId="PyAnnotations"
+                         groupName="Python Annotations"
+                         enabledByDefault="false"
+                         level="WEAK WARNING"
+                         implementationClass="dev.meanmail.codeInspection.ConvertPipeNoneToOptionalInspection"
+                         displayName="Convert X | None to Optional"/>
     </extensions>
 </idea-plugin>
