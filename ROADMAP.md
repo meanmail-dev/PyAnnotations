@@ -2,140 +2,80 @@
 
 ## Current State (v2026.1)
 
-The plugin provides 5 inspections for Python type annotation simplification:
+The plugin provides **21 inspections** for Python type annotation simplification and validation:
+
+### Core Union Inspections
 - `UnionWithNoneInspection` — `Union[X, None]` → `Optional[X]`
 - `UnionWithObjectInspection` — `Union[X, object]` → `object`
 - `UnionWithOneChildToChildInspection` — `Union[X]` → `X`
 - `RedundantOptionalInspection` — `Optional[Optional[X]]` → `Optional[X]`
 - `AnyInUnionInspection` — `Union[X, Any]` → `Any`
+- `DuplicateTypesInUnionInspection` — `Union[int, int, str]` → `Union[int, str]`
+- `RedundantUnionInspection` — `Union[int, bool]` → `int`
+- `NestedUnionInspection` — `Union[Union[X, Y], Z]` → `Union[X, Y, Z]`
+- `EmptyUnionInspection` — detect invalid `Union[]`
+
+### Pipe Syntax Inspections (Python 3.10+)
+- `PipeSyntaxWithObjectInspection` — `X | object` → `object`
+- `PipeSyntaxWithAnyInspection` — `X | Any` → `Any`
+- `RedundantParenthesesInPipeUnionInspection` — `(X) | Y` → `X | Y`
+- `NestedPipeUnionInspection` — `(X | Y) | Z` → `X | Y | Z`
+
+### Syntax Conversion (disabled by default)
+- `ConvertUnionToModernSyntaxInspection` — `Union[X, Y]` → `X | Y`
+- `ConvertOptionalToModernSyntaxInspection` — `Optional[X]` → `X | None`
+- `ConvertPipeToUnionInspection` — `X | Y` → `Union[X, Y]`
+- `ConvertPipeNoneToOptionalInspection` — `X | None` → `Optional[X]`
+- `DeprecatedTypingCollectionInspection` — `List[X]` → `list[X]`
+- `ConvertToTypeStatementInspection` — `TypeAlias` → `type` statement
+
+### Advanced Inspections (disabled by default)
+- `MissingOptionalInspection` — detect `= None` without `Optional`
+- `SimplifyCallableInspection` — `Callable[..., Any]` → `Callable`
+- `RedundantGenericInspection` — redundant `Generic[T]` in class
+- `UnboundTypeVarInspection` — TypeVar used only once
+- `ProtocolMethodAnnotationInspection` — Protocol methods without annotations
 
 ---
 
-## Phase 1: Quality & Testing
+## Backlog
 
-### 1.1 Unit Tests
+### Testing
 - [ ] Add test infrastructure with IntelliJ test framework
-- [ ] Write tests for all 5 existing inspections
-- [ ] Write tests for all 5 quick fixes
-- [ ] Add edge case tests (nested types, string annotations, imports)
+- [ ] Write tests for all inspections and quick fixes
 - [ ] Set up CI test coverage reporting
 
-### 1.2 Code Quality
-- [ ] Add integration tests with real Python files
-- [x] Improve error handling in quick fixes
-- [x] Add logging for debugging
-
----
-
-## Phase 2: Modern Python Support (PEP 604)
-
-> **Python version reference:**
-> - `Optional[X]`, `Union[X, Y]` — Python 3.5+ (classic syntax)
-> - `X | Y` in annotations — Python 3.10+ (PEP 604)
-> - `X | Y` with `from __future__ import annotations` — Python 3.9+
-
-### 2.1 Simplification for Pipe Syntax (Python 3.10+)
-- [x] `PipeSyntaxWithObjectInspection` — `X | object` → `object`
-- [x] `PipeSyntaxWithAnyInspection` — `X | Any` → `Any`
-- [x] `RedundantParenthesesInPipeUnionInspection` — `(X) | Y` → `X | Y`
-- [x] `NestedPipeUnionInspection` — `(X | Y) | Z` → `X | Y | Z`
-
-### 2.2 Modernization (Python 3.10+)
-Inspections to convert classic syntax to modern pipe syntax (disabled by default):
-- [x] `ConvertUnionToModernSyntaxInspection` — `Union[X, Y]` → `X | Y`
-- [x] `ConvertOptionalToModernSyntaxInspection` — `Optional[X]` → `X | None`
-
-### 2.3 Backward Compatibility (Python < 3.10)
-Inspections to convert modern syntax to classic (disabled by default):
-- [x] `ConvertPipeToUnionInspection` — `X | Y` → `Union[X, Y]`
-- [x] `ConvertPipeNoneToOptionalInspection` — `X | None` → `Optional[X]`
-
----
-
-## Phase 3: Additional Type Inspections
-
-### 3.1 Redundancy Detection
-- [x] `DuplicateTypesInUnionInspection` — `Union[int, int, str]` → `Union[int, str]`
-- [x] `RedundantUnionInspection` — `Union[int, bool]` → `int` (bool is subtype of int)
-- [x] `NestedUnionInspection` — `Union[Union[X, Y], Z]` → `Union[X, Y, Z]`
-- [x] `EmptyUnionInspection` — detect `Union[]` or `Union[()]`
-
-### 3.2 Optional Patterns
-- [x] `MissingOptionalInspection` — detect `= None` without `Optional` in annotation (disabled by default)
-
-### 3.3 Collection Type Inspections (Python 3.9+)
-Generic built-in types available since Python 3.9 (PEP 585):
-- [x] `DeprecatedTypingCollectionInspection` — `List[X]` → `list[X]`, `Dict` → `dict`, `Set` → `set`, `Tuple` → `tuple`, etc. (disabled by default)
-
----
-
-## Phase 4: Advanced Features
-
-### 4.1 Type Alias Support
-- [x] `ConvertToTypeStatementInspection` — `TypeAlias` → `type` statement (Python 3.12+, PEP 695, disabled by default)
+### Advanced Features
 - [ ] Handle forward references in string annotations
 
-### 4.2 Callable & Protocol
-- [x] `SimplifyCallableInspection` — detect redundant Callable patterns (disabled by default)
-- [x] `ProtocolMethodAnnotationInspection` — check Protocol method signatures (disabled by default)
-
-### 4.3 Generic Types
-- [x] `UnboundTypeVarInspection` — detect TypeVar used without binding (disabled by default)
-- [x] `RedundantGenericInspection` — `Generic[T]` when not needed (disabled by default)
-
----
-
-## Phase 5: User Experience
-
-### 5.1 Configuration
+### User Experience
 - [ ] Add settings page for inspection configuration
 - [ ] Allow choosing Python version target
 - [ ] Option to prefer `Optional[X]` vs `X | None`
 - [ ] Batch fix action for entire file/project
 
-### 5.2 Documentation
+### Documentation
 - [ ] Improve inspection descriptions with more examples
 - [ ] Add "Learn more" links to PEP documentation
 - [ ] Create plugin documentation website
 
-### 5.3 Localization
+### Localization
 - [ ] Extract strings to resource bundles
 - [ ] Add Russian localization
 - [ ] Add Chinese localization
 
----
-
-## Phase 6: Integration & Ecosystem
-
-### 6.1 Tool Integration
+### Tool Integration
 - [ ] Integration with mypy error messages
 - [ ] Integration with pyright suggestions
 - [ ] Support for stub files (.pyi)
 
-### 6.2 IDE Features
+### IDE Features
 - [ ] Add type annotation intentions (not just inspections)
 - [ ] Quick documentation for type patterns
 - [ ] Type annotation completion suggestions
 
 ---
 
-## Version Planning
-
-| Version | Target | Focus |
-|---------|--------|-------|
-| 2026.2 | Q2 2026 | Phase 1 (Testing) |
-| 2026.3 | Q3 2026 | Phase 2 (PEP 604) |
-| 2026.4 | Q4 2026 | Phase 3 (New Inspections) |
-| 2027.1 | Q1 2027 | Phase 4 (Advanced) |
-| 2027.2 | Q2 2027 | Phase 5-6 (UX & Integration) |
-
----
-
 ## Contributing
 
-Contributions are welcome! Priority areas:
-1. Unit tests for existing functionality
-2. PEP 604 syntax support
-3. New inspection implementations
-
-See [GitHub Issues](https://github.com/meanmail/PyAnnotations/issues) for current tasks.
+Contributions are welcome! See [GitHub Issues](https://github.com/meanmail/PyAnnotations/issues) for current tasks.
