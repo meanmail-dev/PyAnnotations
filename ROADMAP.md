@@ -29,16 +29,26 @@ The plugin provides 5 inspections for Python type annotation simplification:
 
 ## Phase 2: Modern Python Support (PEP 604)
 
-### 2.1 New Union Syntax (`X | Y`)
-- [ ] `UnionPipeSyntaxWithNoneInspection` — `X | None` → `Optional[X]` (or vice versa based on settings)
-- [ ] `UnionPipeSyntaxWithObjectInspection` — `X | object` → `object`
-- [ ] `UnionPipeSyntaxSingleTypeInspection` — detect redundant parentheses `(X) | Y`
-- [ ] `UnionPipeSyntaxWithAnyInspection` — `X | Any` → `Any`
+> **Python version reference:**
+> - `Optional[X]`, `Union[X, Y]` — Python 3.5+ (classic syntax)
+> - `X | Y` in annotations — Python 3.10+ (PEP 604)
+> - `X | Y` with `from __future__ import annotations` — Python 3.9+
 
-### 2.2 Conversion Inspections
-- [ ] `ConvertUnionToModernSyntaxInspection` — `Union[X, Y]` → `X | Y` (Python 3.10+)
-- [ ] `ConvertOptionalToModernSyntaxInspection` — `Optional[X]` → `X | None` (Python 3.10+)
-- [ ] Add settings to choose preferred style (classic vs modern)
+### 2.1 Simplification for Pipe Syntax (Python 3.10+)
+- [ ] `PipeSyntaxWithObjectInspection` — `X | object` → `object`
+- [ ] `PipeSyntaxWithAnyInspection` — `X | Any` → `Any`
+- [ ] `PipeSyntaxSingleTypeInspection` — `(X)` in union → `X`
+- [ ] `NestedPipeUnionInspection` — `(X | Y) | Z` → `X | Y | Z`
+
+### 2.2 Modernization (Python 3.10+)
+Inspections to convert classic syntax to modern pipe syntax:
+- [ ] `ConvertUnionToModernSyntaxInspection` — `Union[X, Y]` → `X | Y`
+- [ ] `ConvertOptionalToModernSyntaxInspection` — `Optional[X]` → `X | None`
+
+### 2.3 Backward Compatibility (Python < 3.10)
+Inspections to convert modern syntax to classic (for projects targeting older Python):
+- [ ] `ConvertPipeToUnionInspection` — `X | Y` → `Union[X, Y]`
+- [ ] `ConvertPipeNoneToOptionalInspection` — `X | None` → `Optional[X]`
 
 ---
 
@@ -54,18 +64,20 @@ The plugin provides 5 inspections for Python type annotation simplification:
 - [ ] `OptionalWithNoneDefaultInspection` — suggest `Optional` when default is `None`
 - [ ] `MissingOptionalInspection` — detect `= None` without `Optional` in annotation
 
-### 3.3 Collection Type Inspections
-- [ ] `RedundantListInspection` — `List[Any]` could be simplified
-- [ ] `RedundantDictInspection` — `Dict[Any, Any]` could be simplified
-- [ ] `DeprecatedTypingImportInspection` — `typing.List` → `list` (Python 3.9+)
+### 3.3 Collection Type Inspections (Python 3.9+)
+Generic built-in types available since Python 3.9 (PEP 585):
+- [ ] `DeprecatedTypingListInspection` — `typing.List[X]` → `list[X]`
+- [ ] `DeprecatedTypingDictInspection` — `typing.Dict[K, V]` → `dict[K, V]`
+- [ ] `DeprecatedTypingSetInspection` — `typing.Set[X]` → `set[X]`
+- [ ] `DeprecatedTypingTupleInspection` — `typing.Tuple[X, Y]` → `tuple[X, Y]`
 
 ---
 
 ## Phase 4: Advanced Features
 
 ### 4.1 Type Alias Support
-- [ ] Detect issues in `TypeAlias` definitions
-- [ ] Support `type` statement (Python 3.12+)
+- [ ] Detect issues in `TypeAlias` definitions (Python 3.10+)
+- [ ] Support `type` statement (Python 3.12+, PEP 695)
 - [ ] Handle forward references in string annotations
 
 ### 4.2 Callable & Protocol
