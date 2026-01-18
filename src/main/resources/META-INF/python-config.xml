@@ -40,5 +40,39 @@
                          level="WARNING"
                          implementationClass="dev.meanmail.codeInspection.AnyInUnionInspection"
                          displayName="Union with Any simplify"/>
+
+        <!-- Pipe union syntax inspections (Python 3.10+) -->
+        <localInspection language="Python"
+                         shortName="PipeSyntaxWithObjectInspection"
+                         suppressId="PyAnnotations"
+                         groupName="Python Annotations"
+                         enabledByDefault="true"
+                         level="WARNING"
+                         implementationClass="dev.meanmail.codeInspection.PipeSyntaxWithObjectInspection"
+                         displayName="Pipe union with object"/>
+        <localInspection language="Python"
+                         shortName="PipeSyntaxWithAnyInspection"
+                         suppressId="PyAnnotations"
+                         groupName="Python Annotations"
+                         enabledByDefault="true"
+                         level="WARNING"
+                         implementationClass="dev.meanmail.codeInspection.PipeSyntaxWithAnyInspection"
+                         displayName="Pipe union with Any"/>
+        <localInspection language="Python"
+                         shortName="NestedPipeUnionInspection"
+                         suppressId="PyAnnotations"
+                         groupName="Python Annotations"
+                         enabledByDefault="true"
+                         level="WEAK WARNING"
+                         implementationClass="dev.meanmail.codeInspection.NestedPipeUnionInspection"
+                         displayName="Nested pipe union"/>
+        <localInspection language="Python"
+                         shortName="RedundantParenthesesInPipeUnionInspection"
+                         suppressId="PyAnnotations"
+                         groupName="Python Annotations"
+                         enabledByDefault="true"
+                         level="WEAK WARNING"
+                         implementationClass="dev.meanmail.codeInspection.RedundantParenthesesInPipeUnionInspection"
+                         displayName="Redundant parentheses in pipe union"/>
     </extensions>
 </idea-plugin>

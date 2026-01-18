@@ -1,0 +1,15 @@
+<html lang="en">
+<body>
+This inspection reports when the pipe union with 'Any' can be simplified (Python 3.10+).<br>
+<code>int | Any</code> → <code>Any</code><br>
+<code>str | int | Any</code> → <code>Any</code><br>
+<p>
+    Since 'Any' is compatible with all types in Python, a union that includes 'Any'
+    is equivalent to just 'Any'. This simplification makes the code more readable.
+</p>
+<p>
+    <b>Note:</b> This inspection only applies to Python 3.10+ pipe union syntax (<code>X | Y</code>).
+    For classic <code>Union[X, Y]</code> syntax, see the AnyInUnionInspection.
+</p>
+</body>
+</html>

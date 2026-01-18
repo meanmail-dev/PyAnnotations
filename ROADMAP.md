@@ -35,10 +35,10 @@ The plugin provides 5 inspections for Python type annotation simplification:
 > - `X | Y` with `from __future__ import annotations` — Python 3.9+
 
 ### 2.1 Simplification for Pipe Syntax (Python 3.10+)
-- [ ] `PipeSyntaxWithObjectInspection` — `X | object` → `object`
-- [ ] `PipeSyntaxWithAnyInspection` — `X | Any` → `Any`
-- [ ] `PipeSyntaxSingleTypeInspection` — `(X)` in union → `X`
-- [ ] `NestedPipeUnionInspection` — `(X | Y) | Z` → `X | Y | Z`
+- [x] `PipeSyntaxWithObjectInspection` — `X | object` → `object`
+- [x] `PipeSyntaxWithAnyInspection` — `X | Any` → `Any`
+- [x] `RedundantParenthesesInPipeUnionInspection` — `(X) | Y` → `X | Y`
+- [x] `NestedPipeUnionInspection` — `(X | Y) | Z` → `X | Y | Z`
 
 ### 2.2 Modernization (Python 3.10+)
 Inspections to convert classic syntax to modern pipe syntax:

@@ -1,0 +1,15 @@
+<html lang="en">
+<body>
+This inspection reports redundant parentheses around single types in pipe unions (Python 3.10+).<br>
+<code>(int) | str</code> → <code>int | str</code><br>
+<code>bool | (float)</code> → <code>bool | float</code><br>
+<p>
+    Parentheses around a single type in a pipe union are unnecessary and can be removed
+    to improve readability.
+</p>
+<p>
+    <b>Note:</b> Parentheses around nested unions like <code>(int | str) | float</code>
+    are handled by a separate inspection (NestedPipeUnionInspection).
+</p>
+</body>
+</html>

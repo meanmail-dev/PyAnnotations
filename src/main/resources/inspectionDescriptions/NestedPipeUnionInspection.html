@@ -1,0 +1,16 @@
+<html lang="en">
+<body>
+This inspection reports nested pipe unions that can be flattened (Python 3.10+).<br>
+<code>(int | str) | float</code> → <code>int | str | float</code><br>
+<code>bool | (int | str)</code> → <code>bool | int | str</code><br>
+<p>
+    Nested pipe unions with parentheses can be flattened into a single union expression.
+    This makes the type annotation more readable without changing its meaning.
+</p>
+<p>
+    <b>Note:</b> The pipe operator <code>|</code> for unions is left-associative, so
+    <code>A | B | C</code> is parsed as <code>(A | B) | C</code>. Explicit parentheses
+    around inner unions are redundant.
+</p>
+</body>
+</html>

@@ -1,0 +1,15 @@
+<html lang="en">
+<body>
+This inspection reports when the pipe union with 'object' can be simplified (Python 3.10+).<br>
+<code>int | object</code> → <code>object</code><br>
+<code>str | int | object</code> → <code>object</code><br>
+<p>
+    Since 'object' is the base class of all classes in Python, a union that includes 'object'
+    is equivalent to just 'object'. This simplification makes the code more readable.
+</p>
+<p>
+    <b>Note:</b> This inspection only applies to Python 3.10+ pipe union syntax (<code>X | Y</code>).
+    For classic <code>Union[X, Y]</code> syntax, see the UnionWithObjectInspection.
+</p>
+</body>
+</html>
