@@ -22,8 +22,8 @@ The plugin provides 5 inspections for Python type annotation simplification:
 
 ### 1.2 Code Quality
 - [ ] Add integration tests with real Python files
-- [ ] Improve error handling in quick fixes
-- [ ] Add logging for debugging
+- [x] Improve error handling in quick fixes
+- [x] Add logging for debugging
 
 ---
 

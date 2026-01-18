@@ -2,6 +2,7 @@ package dev.meanmail.quickfix
 
 import com.intellij.codeInspection.LocalQuickFix
 import com.intellij.codeInspection.ProblemDescriptor
+import com.intellij.openapi.diagnostic.Logger
 import com.intellij.openapi.project.Project
 import com.intellij.psi.PsiElement
 import com.jetbrains.python.psi.LanguageLevel
@@ -21,14 +22,41 @@ class ReplaceUnionWithNoneToOptionalUnionQuickFix : LocalQuickFix {
     }
 
     override fun applyFix(project: Project, descriptor: ProblemDescriptor) {
-        val union = descriptor.psiElement as? PySubscriptionExpression ?: return
-        val elementGenerator = PyElementGenerator.getInstance(project)
-        union.children[1].children.filter { matchNone(it) }.forEach { it.delete() }
-        val replacer = if (union.children[1].children.count() == 1) {
-            "Optional[${union.children[1].children[0].text}]"
-        } else {
-            "Optional[${union.text}]"
+        val union = descriptor.psiElement as? PySubscriptionExpression
+        if (union == null || !union.isValid) {
+            LOG.warn("Invalid PSI element for Union replacement")
+            return
         }
+
+        val indexExpression = union.children.getOrNull(1)
+        if (indexExpression == null || !indexExpression.isValid) {
+            LOG.warn("Missing index expression in Union")
+            return
+        }
+
+        val elementGenerator = PyElementGenerator.getInstance(project)
+
+        val noneElements = indexExpression.children.filter { matchNone(it) }
+        noneElements.forEach { element ->
+            if (element.isValid) {
+                element.delete()
+            }
+        }
+
+        val remainingChildren = indexExpression.children
+        val replacer = when {
+            remainingChildren.isEmpty() -> {
+                LOG.warn("No remaining children after removing None")
+                return
+            }
+            remainingChildren.size == 1 -> "Optional[${remainingChildren[0].text}]"
+            else -> "Optional[${union.text}]"
+        }
+
         union.replace(elementGenerator.createExpressionFromText(LanguageLevel.PYTHON37, replacer))
+    }
+
+    companion object {
+        private val LOG = Logger.getInstance(ReplaceUnionWithNoneToOptionalUnionQuickFix::class.java)
     }
 }
