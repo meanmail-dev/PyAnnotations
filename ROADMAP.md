@@ -78,4 +78,4 @@ The plugin provides **21 inspections** for Python type annotation simplification
 
 ## Contributing
 
-Contributions are welcome! See [GitHub Issues](https://github.com/meanmail/PyAnnotations/issues) for current tasks.
+Contributions are welcome! See [GitHub Issues](https://github.com/meanmail-dev/PyAnnotations/issues) for current tasks.
