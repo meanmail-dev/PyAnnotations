@@ -1,0 +1,88 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validation:
+    name: Validation
+    runs-on: ubuntu-latest
+    outputs:
+      java-version: ${{ steps.java-version.outputs.version }}
+    steps:
+      - uses: actions/checkout@v6
+
+      - uses: gradle/actions/wrapper-validation@v5
+
+      - name: Determine Java version from platformSinceBuild
+        id: java-version
+        run: |
+          SINCE_BUILD=$(grep '^platformSinceBuild=' gradle.properties | cut -d'=' -f2)
+          BUILD_NUM=${SINCE_BUILD:0:3}
+          if [ "$BUILD_NUM" -ge 242 ]; then
+            JAVA_VERSION=21
+          elif [ "$BUILD_NUM" -ge 231 ]; then
+            JAVA_VERSION=17
+          elif [ "$BUILD_NUM" -ge 203 ]; then
+            JAVA_VERSION=11
+          else
+            JAVA_VERSION=8
+          fi
+          echo "version=$JAVA_VERSION" >> $GITHUB_OUTPUT
+          echo "Detected Java version: $JAVA_VERSION (from platformSinceBuild=$SINCE_BUILD)"
+
+  test:
+    name: Test
+    runs-on: ubuntu-latest
+    needs:
+      - validation
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Set up JDK ${{ needs.validation.outputs.java-version }}
+        uses: actions/setup-java@v5
+        with:
+          distribution: 'corretto'
+          java-version: ${{ needs.validation.outputs.java-version }}
+
+      - name: Test
+        run: ./gradlew test
+
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    needs:
+      - validation
+      - test
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Set up JDK ${{ needs.validation.outputs.java-version }}
+        uses: actions/setup-java@v5
+        with:
+          distribution: 'corretto'
+          java-version: ${{ needs.validation.outputs.java-version }}
+
+      - name: Build with Gradle
+        run: ./gradlew buildPlugin
+
+      - name: Sign Plugin
+        if: github.ref == 'refs/heads/master'
+        env:
+          CERTIFICATE_CHAIN: ${{ secrets.CERTIFICATE_CHAIN }}
+          PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }}
+          PRIVATE_KEY_PASSWORD: ${{ secrets.PRIVATE_KEY_PASSWORD }}
+        run: ./gradlew signPlugin
+
+      - name: Upload Plugin Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: plugin
+          path: build/distributions/*.zip

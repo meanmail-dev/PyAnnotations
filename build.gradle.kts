@@ -1,10 +1,9 @@
 import org.jetbrains.intellij.platform.gradle.TestFrameworkType
-import org.jetbrains.kotlin.gradle.dsl.JvmTarget
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 fun config(name: String) = project.findProperty(name).toString()
 
 repositories {
+    mavenLocal()
     mavenCentral()
 
     intellijPlatform {
@@ -14,9 +13,10 @@ repositories {
 
 plugins {
     java
-// https://plugins.jetbrains.com/docs/intellij/using-kotlin.html#kotlin-standard-library
-    alias(libs.plugins.kotlin) // Kotlin support
-    alias(libs.plugins.intelliJPlatform) // IntelliJ Platform Gradle Plugin
+    alias(libs.plugins.kotlin)
+    alias(libs.plugins.intelliJPlatform)
+    id("dev.meanmail.intellij-plugin-conventions") version "1.0.0"
+    id("dev.meanmail.resumable-download") version "1.0.0"
 }
 
 group = config("group")
@@ -29,7 +29,7 @@ dependencies {
         create(config("platformType"), config("platformVersion"))
         val plugins = providers.gradleProperty("plugins").map { it.split(',') }
         if (plugins.isPresent && plugins.get().isNotEmpty()) {
-            compatiblePlugins()
+            compatiblePlugins(plugins)
         }
         val platformBundledPlugins = providers.gradleProperty("platformBundledPlugins").map { it.split(',') }
         if (platformBundledPlugins.isPresent && platformBundledPlugins.get().isNotEmpty()) {
@@ -42,15 +42,31 @@ dependencies {
     }
 }
 
+// Check if runIde task is requested (for optional=true during testing)
+val isRunIde = gradle.startParameter.taskNames.any {
+    it.contains("runIde", ignoreCase = true) || it.contains("prepareSandbox", ignoreCase = true)
+}
+
 intellijPlatform {
     pluginConfiguration {
         name.set(config("pluginName"))
         version.set(project.version.toString())
+
         ideaVersion {
             sinceBuild.set(config("platformSinceBuild"))
             untilBuild.set(provider { null })
         }
+        val pluginCode = config("code")
+        if (pluginCode.isNotBlank()) {
+            productDescriptor {
+                code = pluginCode
+                releaseDate = config("releaseDate")
+                releaseVersion = config("releaseVersion")
+                optional = if (isRunIde) true else config("optional").toBoolean()
+            }
+        }
     }
+    autoReload = false
 
     buildSearchableOptions = false
 
@@ -58,27 +74,35 @@ intellijPlatform {
         recommended()
     }
 
+    // Enable IDE caching for plugin verification
+    // Cache path is configured via org.jetbrains.intellij.platform.intellijPlatformCache in ~/.gradle/gradle.properties
+    caching.ides {
+        enabled = true
+    }
+
+    signing {
+        certificateChain.set(providers.environmentVariable("CERTIFICATE_CHAIN"))
+        privateKey.set(providers.environmentVariable("PRIVATE_KEY"))
+        password.set(providers.environmentVariable("PRIVATE_KEY_PASSWORD"))
+    }
+
     publishing {
-        try {
-            token.set(file("token.txt").readLines()[0])
-        } catch (_: Exception) {
-            println("No token.txt found")
-        }
+        token.set(
+            providers.environmentVariable("PUBLISH_TOKEN").orElse(
+                providers.provider {
+                    try {
+                        file("token.txt").readLines()[0]
+                    } catch (_: Exception) {
+                        println("No PUBLISH_TOKEN env variable or token.txt found")
+                        ""
+                    }
+                }
+            ))
         channels.set(listOf(config("publishChannel")))
     }
 }
 
 tasks {
-    config("jvmVersion").let {
-        withType<JavaCompile> {
-            sourceCompatibility = it
-            targetCompatibility = it
-        }
-        withType<KotlinCompile> {
-            compilerOptions.jvmTarget.set(JvmTarget.fromTarget(it))
-        }
-    }
-
     wrapper {
         distributionType = Wrapper.DistributionType.ALL
         gradleVersion = config("gradleVersion")
