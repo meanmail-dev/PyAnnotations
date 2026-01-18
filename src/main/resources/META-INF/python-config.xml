@@ -111,6 +111,22 @@
                          implementationClass="dev.meanmail.codeInspection.NestedUnionInspection"
                          displayName="Nested Union types"/>
         <localInspection language="Python"
+                         shortName="RedundantUnionInspection"
+                         suppressId="PyAnnotations"
+                         groupName="Python Annotations"
+                         enabledByDefault="true"
+                         level="WARNING"
+                         implementationClass="dev.meanmail.codeInspection.RedundantUnionInspection"
+                         displayName="Redundant types in Union (subtype)"/>
+        <localInspection language="Python"
+                         shortName="EmptyUnionInspection"
+                         suppressId="PyAnnotations"
+                         groupName="Python Annotations"
+                         enabledByDefault="true"
+                         level="ERROR"
+                         implementationClass="dev.meanmail.codeInspection.EmptyUnionInspection"
+                         displayName="Empty or invalid Union"/>
+        <localInspection language="Python"
                          shortName="MissingOptionalInspection"
                          suppressId="PyAnnotations"
                          groupName="Python Annotations"
@@ -172,5 +188,21 @@
                          level="WEAK WARNING"
                          implementationClass="dev.meanmail.codeInspection.RedundantGenericInspection"
                          displayName="Redundant Generic in class definition"/>
+        <localInspection language="Python"
+                         shortName="UnboundTypeVarInspection"
+                         suppressId="PyAnnotations"
+                         groupName="Python Annotations"
+                         enabledByDefault="false"
+                         level="WEAK WARNING"
+                         implementationClass="dev.meanmail.codeInspection.UnboundTypeVarInspection"
+                         displayName="Unbound TypeVar in annotation"/>
+        <localInspection language="Python"
+                         shortName="ProtocolMethodAnnotationInspection"
+                         suppressId="PyAnnotations"
+                         groupName="Python Annotations"
+                         enabledByDefault="false"
+                         level="WEAK WARNING"
+                         implementationClass="dev.meanmail.codeInspection.ProtocolMethodAnnotationInspection"
+                         displayName="Protocol method without type annotations"/>
     </extensions>
 </idea-plugin>

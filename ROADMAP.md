@@ -56,9 +56,9 @@ Inspections to convert modern syntax to classic (disabled by default):
 
 ### 3.1 Redundancy Detection
 - [x] `DuplicateTypesInUnionInspection` — `Union[int, int, str]` → `Union[int, str]`
-- [ ] `RedundantUnionInspection` — `Union[int, bool]` → `int` (bool is subtype of int)
+- [x] `RedundantUnionInspection` — `Union[int, bool]` → `int` (bool is subtype of int)
 - [x] `NestedUnionInspection` — `Union[Union[X, Y], Z]` → `Union[X, Y, Z]`
-- [ ] `EmptyUnionInspection` — detect `Union[]` or `Union[()]`
+- [x] `EmptyUnionInspection` — detect `Union[]` or `Union[()]`
 
 ### 3.2 Optional Patterns
 - [x] `MissingOptionalInspection` — detect `= None` without `Optional` in annotation (disabled by default)
@@ -77,10 +77,10 @@ Generic built-in types available since Python 3.9 (PEP 585):
 
 ### 4.2 Callable & Protocol
 - [x] `SimplifyCallableInspection` — detect redundant Callable patterns (disabled by default)
-- [ ] `ProtocolMethodAnnotationInspection` — check Protocol method signatures
+- [x] `ProtocolMethodAnnotationInspection` — check Protocol method signatures (disabled by default)
 
 ### 4.3 Generic Types
-- [ ] `UnboundTypeVarInspection` — detect TypeVar used without binding
+- [x] `UnboundTypeVarInspection` — detect TypeVar used without binding (disabled by default)
 - [x] `RedundantGenericInspection` — `Generic[T]` when not needed (disabled by default)
 
 ---

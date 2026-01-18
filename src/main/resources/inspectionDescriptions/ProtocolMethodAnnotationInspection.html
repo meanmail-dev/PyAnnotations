@@ -1,0 +1,23 @@
+<html lang="en">
+<body>
+This inspection checks that Protocol methods have proper type annotations.<br>
+<pre>
+class MyProtocol(Protocol):
+    def method(self, x) -> int:  # Warning: 'x' should have annotation
+        ...
+
+    def other(self, x: int):  # Warning: should have return type
+        ...
+</pre>
+<p>
+    Protocol classes define structural subtyping interfaces. For Protocols to work
+    correctly with type checkers, all method parameters and return types should
+    be annotated. Without annotations, type checkers cannot properly verify
+    that implementing classes satisfy the Protocol.
+</p>
+<p>
+    <b>Note:</b> This inspection is disabled by default as it may be too strict
+    for some codebases.
+</p>
+</body>
+</html>

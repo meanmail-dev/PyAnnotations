@@ -1,0 +1,17 @@
+<html lang="en">
+<body>
+This inspection detects TypeVar used in function annotations without meaningful binding.<br>
+<code>def foo(x: T) -> int</code> — T is used only once, doesn't constrain anything<br>
+<code>def bar(x: T) -> T</code> — T is used meaningfully (input/output relationship)<br>
+<p>
+    A TypeVar should be used at least twice in a function signature to establish
+    a type relationship (e.g., between parameters, or between a parameter and return type).
+    Using a TypeVar only once is equivalent to using <code>Any</code> and provides
+    no additional type safety.
+</p>
+<p>
+    <b>Note:</b> This inspection uses heuristics to detect TypeVars (single uppercase letters,
+    names ending with _T, etc.) and may have false positives.
+</p>
+</body>
+</html>

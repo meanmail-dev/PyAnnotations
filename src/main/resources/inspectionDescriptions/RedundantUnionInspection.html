@@ -1,0 +1,13 @@
+<html lang="en">
+<body>
+This inspection detects redundant types in Union where one type is a subtype of another.<br>
+<code>Union[int, bool]</code> → <code>int</code> (bool is subtype of int)<br>
+<code>Union[float, int]</code> → <code>float</code> (int is subtype of float)<br>
+<code>Union[complex, float, int]</code> → <code>complex</code><br>
+<p>
+    In Python's type system, <code>bool</code> is a subtype of <code>int</code>,
+    and <code>int</code> is considered a subtype of <code>float</code> for type checking purposes.
+    When a Union contains both a type and its subtype, the subtype is redundant.
+</p>
+</body>
+</html>
