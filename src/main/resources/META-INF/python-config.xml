@@ -74,5 +74,23 @@
                          level="WEAK WARNING"
                          implementationClass="dev.meanmail.codeInspection.RedundantParenthesesInPipeUnionInspection"
                          displayName="Redundant parentheses in pipe union"/>
+
+        <!-- Modernization inspections (Python 3.10+) - disabled by default -->
+        <localInspection language="Python"
+                         shortName="ConvertUnionToModernSyntaxInspection"
+                         suppressId="PyAnnotations"
+                         groupName="Python Annotations"
+                         enabledByDefault="false"
+                         level="WEAK WARNING"
+                         implementationClass="dev.meanmail.codeInspection.ConvertUnionToModernSyntaxInspection"
+                         displayName="Convert Union to pipe syntax"/>
+        <localInspection language="Python"
+                         shortName="ConvertOptionalToModernSyntaxInspection"
+                         suppressId="PyAnnotations"
+                         groupName="Python Annotations"
+                         enabledByDefault="false"
+                         level="WEAK WARNING"
+                         implementationClass="dev.meanmail.codeInspection.ConvertOptionalToModernSyntaxInspection"
+                         displayName="Convert Optional to pipe syntax"/>
     </extensions>
 </idea-plugin>

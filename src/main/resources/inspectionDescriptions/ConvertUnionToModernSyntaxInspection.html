@@ -1,0 +1,15 @@
+<html lang="en">
+<body>
+This inspection suggests converting classic Union syntax to modern pipe syntax (Python 3.10+).<br>
+<code>Union[int, str]</code> → <code>int | str</code><br>
+<code>Union[int, str, float]</code> → <code>int | str | float</code><br>
+<p>
+    Python 3.10 introduced PEP 604 which allows using the <code>|</code> operator for type unions.
+    This syntax is more concise and doesn't require importing from <code>typing</code>.
+</p>
+<p>
+    <b>Note:</b> This inspection is disabled by default. Enable it when your project
+    targets Python 3.10 or later and you want to modernize type annotations.
+</p>
+</body>
+</html>

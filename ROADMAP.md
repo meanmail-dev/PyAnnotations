@@ -41,9 +41,9 @@ The plugin provides 5 inspections for Python type annotation simplification:
 - [x] `NestedPipeUnionInspection` — `(X | Y) | Z` → `X | Y | Z`
 
 ### 2.2 Modernization (Python 3.10+)
-Inspections to convert classic syntax to modern pipe syntax:
-- [ ] `ConvertUnionToModernSyntaxInspection` — `Union[X, Y]` → `X | Y`
-- [ ] `ConvertOptionalToModernSyntaxInspection` — `Optional[X]` → `X | None`
+Inspections to convert classic syntax to modern pipe syntax (disabled by default):
+- [x] `ConvertUnionToModernSyntaxInspection` — `Union[X, Y]` → `X | Y`
+- [x] `ConvertOptionalToModernSyntaxInspection` — `Optional[X]` → `X | None`
 
 ### 2.3 Backward Compatibility (Python < 3.10)
 Inspections to convert modern syntax to classic (for projects targeting older Python):

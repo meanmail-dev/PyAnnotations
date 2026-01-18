@@ -1,0 +1,16 @@
+<html lang="en">
+<body>
+This inspection suggests converting Optional syntax to modern pipe syntax (Python 3.10+).<br>
+<code>Optional[int]</code> → <code>int | None</code><br>
+<code>Optional[str]</code> → <code>str | None</code><br>
+<p>
+    Python 3.10 introduced PEP 604 which allows using <code>X | None</code> instead of
+    <code>Optional[X]</code>. This syntax is more concise and doesn't require importing
+    <code>Optional</code> from <code>typing</code>.
+</p>
+<p>
+    <b>Note:</b> This inspection is disabled by default. Enable it when your project
+    targets Python 3.10 or later and you want to modernize type annotations.
+</p>
+</body>
+</html>
