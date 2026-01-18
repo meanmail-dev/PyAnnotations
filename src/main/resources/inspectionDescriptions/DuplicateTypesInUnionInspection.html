@@ -1,0 +1,11 @@
+<html lang="en">
+<body>
+This inspection detects duplicate types in Union type annotations.<br>
+<code>Union[int, int, str]</code> → <code>Union[int, str]</code><br>
+<code>Union[str, str, str]</code> → <code>str</code><br>
+<p>
+    Having duplicate types in a Union is redundant and reduces code clarity.
+    Each type should appear only once in the Union.
+</p>
+</body>
+</html>

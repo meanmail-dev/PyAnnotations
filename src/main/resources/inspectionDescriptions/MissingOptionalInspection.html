@@ -1,0 +1,17 @@
+<html lang="en">
+<body>
+This inspection detects parameters with <code>None</code> as default value
+but without <code>Optional</code> in the type annotation.<br>
+<code>def foo(x: int = None)</code> → <code>def foo(x: Optional[int] = None)</code><br>
+<code>def bar(name: str = None)</code> → <code>def bar(name: Optional[str] = None)</code><br>
+<p>
+    When a parameter has <code>None</code> as its default value, the type annotation
+    should include <code>Optional</code> (or <code>X | None</code> in Python 3.10+)
+    to correctly indicate that the parameter can be <code>None</code>.
+</p>
+<p>
+    <b>Note:</b> This inspection is disabled by default. Enable it if you want
+    strict type annotation checking in your project.
+</p>
+</body>
+</html>

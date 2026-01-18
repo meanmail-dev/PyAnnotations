@@ -1,0 +1,22 @@
+<html lang="en">
+<body>
+This inspection suggests replacing deprecated <code>typing</code> module collections
+with built-in generic types (Python 3.9+, PEP 585).<br>
+<code>List[int]</code> → <code>list[int]</code><br>
+<code>Dict[str, int]</code> → <code>dict[str, int]</code><br>
+<code>Set[str]</code> → <code>set[str]</code><br>
+<code>Tuple[int, str]</code> → <code>tuple[int, str]</code><br>
+<code>FrozenSet[int]</code> → <code>frozenset[int]</code><br>
+<code>Type[MyClass]</code> → <code>type[MyClass]</code><br>
+<p>
+    Since Python 3.9 (PEP 585), built-in collection types like <code>list</code>,
+    <code>dict</code>, <code>set</code>, and <code>tuple</code> can be used directly
+    as generic types in annotations. The <code>typing</code> module equivalents
+    are deprecated and may be removed in future Python versions.
+</p>
+<p>
+    <b>Note:</b> This inspection is disabled by default. Enable it when your project
+    targets Python 3.9 or later.
+</p>
+</body>
+</html>

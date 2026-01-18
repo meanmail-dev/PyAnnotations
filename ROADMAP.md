@@ -55,21 +55,17 @@ Inspections to convert modern syntax to classic (disabled by default):
 ## Phase 3: Additional Type Inspections
 
 ### 3.1 Redundancy Detection
-- [ ] `DuplicateTypesInUnionInspection` — `Union[int, int, str]` → `Union[int, str]`
+- [x] `DuplicateTypesInUnionInspection` — `Union[int, int, str]` → `Union[int, str]`
 - [ ] `RedundantUnionInspection` — `Union[int, bool]` → `int` (bool is subtype of int)
-- [ ] `NestedUnionInspection` — `Union[Union[X, Y], Z]` → `Union[X, Y, Z]`
+- [x] `NestedUnionInspection` — `Union[Union[X, Y], Z]` → `Union[X, Y, Z]`
 - [ ] `EmptyUnionInspection` — detect `Union[]` or `Union[()]`
 
 ### 3.2 Optional Patterns
-- [ ] `OptionalWithNoneDefaultInspection` — suggest `Optional` when default is `None`
-- [ ] `MissingOptionalInspection` — detect `= None` without `Optional` in annotation
+- [x] `MissingOptionalInspection` — detect `= None` without `Optional` in annotation (disabled by default)
 
 ### 3.3 Collection Type Inspections (Python 3.9+)
 Generic built-in types available since Python 3.9 (PEP 585):
-- [ ] `DeprecatedTypingListInspection` — `typing.List[X]` → `list[X]`
-- [ ] `DeprecatedTypingDictInspection` — `typing.Dict[K, V]` → `dict[K, V]`
-- [ ] `DeprecatedTypingSetInspection` — `typing.Set[X]` → `set[X]`
-- [ ] `DeprecatedTypingTupleInspection` — `typing.Tuple[X, Y]` → `tuple[X, Y]`
+- [x] `DeprecatedTypingCollectionInspection` — `List[X]` → `list[X]`, `Dict` → `dict`, `Set` → `set`, `Tuple` → `tuple`, etc. (disabled by default)
 
 ---
 

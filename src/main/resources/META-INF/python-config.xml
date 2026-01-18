@@ -93,6 +93,42 @@
                          implementationClass="dev.meanmail.codeInspection.ConvertOptionalToModernSyntaxInspection"
                          displayName="Convert Optional to pipe syntax"/>
 
+        <!-- Phase 3: Additional type inspections -->
+        <localInspection language="Python"
+                         shortName="DuplicateTypesInUnionInspection"
+                         suppressId="PyAnnotations"
+                         groupName="Python Annotations"
+                         enabledByDefault="true"
+                         level="WARNING"
+                         implementationClass="dev.meanmail.codeInspection.DuplicateTypesInUnionInspection"
+                         displayName="Duplicate types in Union"/>
+        <localInspection language="Python"
+                         shortName="NestedUnionInspection"
+                         suppressId="PyAnnotations"
+                         groupName="Python Annotations"
+                         enabledByDefault="true"
+                         level="WARNING"
+                         implementationClass="dev.meanmail.codeInspection.NestedUnionInspection"
+                         displayName="Nested Union types"/>
+        <localInspection language="Python"
+                         shortName="MissingOptionalInspection"
+                         suppressId="PyAnnotations"
+                         groupName="Python Annotations"
+                         enabledByDefault="false"
+                         level="WARNING"
+                         implementationClass="dev.meanmail.codeInspection.MissingOptionalInspection"
+                         displayName="Missing Optional for None default"/>
+
+        <!-- Collection type inspections (Python 3.9+) - disabled by default -->
+        <localInspection language="Python"
+                         shortName="DeprecatedTypingCollectionInspection"
+                         suppressId="PyAnnotations"
+                         groupName="Python Annotations"
+                         enabledByDefault="false"
+                         level="WEAK WARNING"
+                         implementationClass="dev.meanmail.codeInspection.DeprecatedTypingCollectionInspection"
+                         displayName="Deprecated typing collection"/>
+
         <!-- Backward compatibility inspections (Python < 3.10) - disabled by default -->
         <localInspection language="Python"
                          shortName="ConvertPipeToUnionInspection"

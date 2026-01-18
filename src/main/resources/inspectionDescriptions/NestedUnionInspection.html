@@ -1,0 +1,11 @@
+<html lang="en">
+<body>
+This inspection detects nested Union types that can be flattened.<br>
+<code>Union[Union[int, str], float]</code> → <code>Union[int, str, float]</code><br>
+<code>Union[Union[A, B], Union[C, D]]</code> → <code>Union[A, B, C, D]</code><br>
+<p>
+    Nested Unions are automatically flattened by Python's type system,
+    but explicit flattening improves code readability.
+</p>
+</body>
+</html>
